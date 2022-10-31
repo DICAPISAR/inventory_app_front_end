@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const sessionUtils = require('./sessionUtils')
-const brandService = require('../services/brand')
-const SessionUtils = require("./sessionUtils");
+const sessionUtils = require('./sessionUtils');
+const brandService = require('../services/brand');
 
 /* GET brand create page. */
 router.get('/create', (req, res, next) => {
@@ -103,6 +102,9 @@ router.post('/:brandId', async (req, res, next) => {
 });
 
 function normalizeBrandList(brandList) {
+    if (brandList === null) {
+        return null
+    }
     brandList.forEach(brand => {
         brand.creationDate = getDateWithFormat(brand.creationDate);
         brand.updateDate = getDateWithFormat(brand.updateDate);

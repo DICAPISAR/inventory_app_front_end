@@ -1,0 +1,91 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-validation">
+                        <h4 class="card-title">Crear Nuevo Tipo de Artículo</h4>
+                        <div class="basic-form">
+                            <form class="form-valide" action="/type_item/create" method="post" id="form" name="form">
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="typeItemName">Nombre de Tipo de Artículo
+                                        <span class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="typeItemName"
+                                               name="typeItemName" placeholder="Ingresar nombre de Tipo de Articulo..." onchange="validateInput('typeItemName')">
+                                        <div class="col-lg text-danger" id="typeItemName-validate"
+                                             style="display: none;">
+                                            Éste campo no debe estar vacio
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-switch row">
+                                    <label class="col-lg-4 col-form-label" for="isPerishable">¿Es perecedero?
+                                        <span class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input class="form-check-input" type="checkbox" name="isPerishable" id="isPerishable">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-lg-8 ml-auto">
+                                        <button type="button" class="btn btn-primary" id="buttonForm"
+                                                name="buttonForm" onclick="validateForm()">Crear Nuevo Tipo de Artículo</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#buttonForm").on("click", function () {
+
+        let isValidateForm = true;
+        let typeItemName = document.getElementById('typeItemName').value;
+
+        if (typeItemName === '') {
+            let brandNameValidate = document.getElementById('typeItemName-validate');
+            brandNameValidate.style.display = 'block';
+            isValidateForm = false;
+        }
+
+        if (isValidateForm) {
+            document.getElementById('form').submit();
+        } else {
+            toastr.warning("Algunos campos presentan errores en la información ingresada", "Errror en los Campos",
+                    {
+                        positionClass: "toast-top-right",
+                        timeOut: 5e3,
+                        closeButton: !0,
+                        debug: !1,
+                        newestOnTop: !0,
+                        progressBar: !0,
+                        preventDuplicates: !0,
+                        onclick: null,
+                        showDuration: "300",
+                        hideDuration: "1000",
+                        extendedTimeOut: "1000",
+                        showEasing: "swing",
+                        hideEasing: "linear",
+                        showMethod: "fadeIn",
+                        hideMethod: "fadeOut",
+                        tapToDismiss: !1
+                    }
+            )
+        }
+    });
+
+    function validateInput(inputId) {
+        let input = document.getElementById(inputId).value;
+        let inputToValidateValidate = document.getElementById(inputId + '-validate');
+        if (input === '') {
+            inputToValidateValidate.style.display = 'block';
+        } else {
+            inputToValidateValidate.style.display = 'none';
+        }
+    }
+</script>

@@ -2,12 +2,12 @@ const apiCallService = require('./apiCall')
 
 exports.logout = async (sessionId) => {
     let response = await apiCallService.post('/logout', null, sessionId)
-    if (response === undefined) {
+    if (response.getDataError !== null) {
         return {
             isLogout: false
         }
     }
     return {
-        isLogout: true
+        isLogout: response.getDataResponse.status === 200
     }
 }

@@ -1,23 +1,13 @@
 const apiCallService = require('./apiCall')
 
-exports.login = async (userName, password) => {
-    let data = {
-        'name': userName,
-        'password': password
-    }
-
-    let response = await apiCallService.post('/login', data, 'asdfasdfa')
-
+exports.logout = async (sessionId) => {
+    let response = await apiCallService.post('/logout', null, sessionId)
     if (response === undefined) {
         return {
-            'isLogin': false,
-            'sessionCookie': null
+            isLogout: false
         }
     }
-
     return {
-        'isLogin': response.status === 200,
-        'sessionCookie': response.headers["set-cookie"]
+        isLogout: true
     }
-
 }

@@ -1,30 +1,34 @@
 const express = require('express');
 const router = express.Router();
-const loginService = require('../services/login')
+const logoutService = require('../services/logout')
 const SessionUtils = require('./sessionUtils')
 
-/* GET login page. */
+/* GET logout page. */
 router.get('/', (req, res, next) => {
-    res.render('login', { title: 'Inventory App', isWithInterface: false });
-});
-
-/* POST login page. */
-router.post('/', async (req, res, next) => {
-
-    let { userName, password } = req.body;
-
-    console.log('userName ', userName);
-    console.log('password ', password);
-
-    let isLogin = await loginService.login(userName, password)
-
-    if (isLogin.isLogin) {
-        res.cookie('SESSION', SessionUtils.getCookie(isLogin.sessionCookie, 'SESSION'))
+    let isLogin = SessionUtils.validateSession(req)
+    if (isLogin) {
         res.redirect('/')
         return;
     }
+    res.render('logout', { title: 'Inventory App', isWithInterface: false });
+});
 
-    res.redirect('/login');
+/* Get to do logout page. */
+router.get('/do', async (req, res, next) => {
+    let isLogin = SessionUtils.validateSession(req)
+    if (!isLogin) {
+        res.redirect('/')
+        return;
+    }
+    let sessionId = req.cookies.SESSION;
+    let logoutResponse = await logoutService.logout(sessionId);
+    if (logoutResponse.isLogout) {
+        res.clearCookie('SESSION');
+        res.redirect('/logout');
+        return;
+    }
+
+    res.redirect('/');
 
 });
 

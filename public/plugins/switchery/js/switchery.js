@@ -7,7 +7,7 @@
  * @api public
  */
 
-function require(path, parent, orig) {
+function require(path) {
   var resolved = require.resolve(path);
 
   // lookup failed
@@ -167,7 +167,7 @@ require.relative = function(parent) {
 
   function localRequire(path) {
     var resolved = localRequire.resolve(path);
-    return require(resolved, parent, path);
+    return require(resolved);
   }
 
   /**

@@ -11,16 +11,18 @@
 
     <title>{{title}}</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
     <!-- Pignose Calender -->
-    <link href="./plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
+    <link href="/plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <!-- Chartist -->
-    <link rel="stylesheet" href="./plugins/chartist/css/chartist.min.css">
-    <link rel="stylesheet" href="./plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
+    <link rel="stylesheet" href="/plugins/chartist/css/chartist.min.css">
+    <link rel="stylesheet" href="/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
     <!-- Custom Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
     <!-- Font Awesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha512-3M00D/rn8n+2ZVXBO9Hib0GKNpkm8MSUU/e2VNthDyBYxKWG+BftNYYcuEjXlyrSO637tidzMBXfE7sQm0INUg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Toast -->
+    <link href="/plugins/toastr/css/toastr.min.css" rel="stylesheet">
 
 </head>
 
@@ -42,7 +44,7 @@
 <!--**********************************
     Main wrapper start
 ***********************************-->
-<script src="plugins/common/common.min.js"></script>
+<script src="/plugins/common/common.min.js"></script>
 <!--**********************************
     Main wrapper end
 ***********************************-->
@@ -58,10 +60,10 @@
         <div class="nav-header">
             <div class="brand-logo">
                 <a href="/">
-                    <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
-                    <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
+                    <b class="logo-abbr"><img src="/images/logo.png" alt=""> </b>
+                    <span class="logo-compact"><img src="/images/logo-compact.png" alt=""></span>
                     <span class="brand-title">
-                        <img src="images/logo-text.png" style="width: 150px;" alt="">
+                        <img src="/images/logo-text.png" style="width: 150px;" alt="">
                     </span>
                 </a>
             </div>
@@ -112,7 +114,7 @@
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative" data-toggle="dropdown">
                                 <span class="activity active"></span>
-                                <img src="images/user/1.png" height="40" width="40" alt="">
+                                <img src="/images/user/1.png" height="40" width="40" alt="">
                             </div>
                             <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                                 <div class="dropdown-content-body">
@@ -210,8 +212,8 @@
                             <i class="icon-tag menu-icon"></i><span class="nav-text">Marcas</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="/layout-blank.html"><i class="icon-plus menu-icon"></i>Crear</a></li>
-                            <li><a href="/layout.html"><i class="icon-list menu-icon"></i>Consultar</a></li>
+                            <li><a href="/brand/create"><i class="icon-plus menu-icon"></i>Crear</a></li>
+                            <li><a href="/brand/consult"><i class="icon-list menu-icon"></i>Consultar</a></li>
                         </ul>
                     </li>
                     <li class="mega-menu mega-menu-sm">
@@ -259,39 +261,39 @@
     ***********************************-->
     {{/if}}
 </div>
-<script src="js/custom.min.js"></script>
-<script src="js/settings.js"></script>
-<script src="js/gleek.js"></script>
-<script src="js/styleSwitcher.js"></script>
+<script src="/js/custom.min.js"></script>
+<script src="/js/settings.js"></script>
+<script src="/js/gleek.js"></script>
+<script src="/js/styleSwitcher.js"></script>
 
 <!-- Chartjs -->
-<script src="./plugins/chart.js/Chart.bundle.min.js"></script>
+<script src="/plugins/chart.js/Chart.bundle.min.js"></script>
 <!-- Circle progress -->
-<script src="./plugins/circle-progress/circle-progress.min.js"></script>
+<script src="/plugins/circle-progress/circle-progress.min.js"></script>
 <!-- Datamap -->
-<script src="./plugins/d3v3/index.js"></script>
-<script src="./plugins/topojson/topojson.min.js"></script>
-<script src="./plugins/datamaps/datamaps.world.min.js"></script>
+<script src="/plugins/d3v3/index.js"></script>
+<script src="/plugins/topojson/topojson.min.js"></script>
+<script src="/plugins/datamaps/datamaps.world.min.js"></script>
 <!-- Morrisjs -->
-<script src="./plugins/raphael/raphael.min.js"></script>
-<script src="./plugins/morris/morris.min.js"></script>
+<script src="/plugins/raphael/raphael.min.js"></script>
+<script src="/plugins/morris/morris.min.js"></script>
 <!-- Pignose Calender -->
-<script src="./plugins/moment/moment.min.js"></script>
-<script src="./plugins/pg-calendar/js/pignose.calendar.min.js"></script>
+<script src="/plugins/moment/moment.min.js"></script>
+<script src="/plugins/pg-calendar/js/pignose.calendar.min.js"></script>
 <!-- ChartistJS -->
-<script src="./plugins/chartist/js/chartist.min.js"></script>
+<script src="/plugins/chartist/js/chartist.min.js"></script>
 <script src="./plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
+<!-- Toastr -->
+<script src="/plugins/toastr/js/toastr.min.js"></script>
+<script src="/plugins/toastr/js/toastr.init.js"></script>
+<!-- Table -->
+<script src="/plugins/tables/js/jquery.dataTables.min.js"></script>
+<script src="/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
+<script src="/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
 
 
 
-<script src="./js/dashboard/dashboard-1.js"></script>
-{{#if isWithInterface}}
-    <script>
-        function logout() {
-
-        }
-    </script>
-{{/if}}
+<script src="/js/dashboard/dashboard-1.js"></script>
 
 </body>
 

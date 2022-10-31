@@ -1,5 +1,5 @@
 exports.validateSession = (req) => {
-    let cookies = req.cookies
+    let cookies = req.cookies;
     let session = cookies.SESSION;
     return session != null;
 }

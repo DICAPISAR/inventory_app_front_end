@@ -1,9 +1,15 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const sessionUtils = require('./sessionUtils')
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get('/', (req, res, next) => {
+  let isSessionValidate = sessionUtils.validateSession(req);
+  if (isSessionValidate) {
+    res.render('index', { title: 'Inventory App', isWithInterface: true });
+    return;
+  }
+  res.redirect('/login');
 });
 
 module.exports = router;

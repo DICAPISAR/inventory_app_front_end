@@ -1,0 +1,91 @@
+<div class="container" style="height: 550px">
+    <div class="login-form-bg h-100">
+        <div class="container h-100">
+            <div class="row justify-content-center h-100">
+                <div class="col-xl-3 login-image" id="loginImage" hidden>
+                    <div class="form-input-content">
+                        <img src="/images/inventory.png" style="width: 100%; height: auto;" alt="">
+                    </div>
+                </div>
+                <div class="col-xl-8">
+                    <div class="form-input-content">
+                        <div class="card login-form mb-0">
+                            <div class="card-body pt-5">
+                                <div class="justify-content-center">
+                                    <h2>Bienvenido a Inventory App</h2>
+                                </div>
+                                <form class="mt-5 mb-5 login-input" method="post" action="/login">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="userName" name="userName" placeholder="Nombre de Usuario">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña">
+                                            </div>
+                                            <div class="col">
+                                                <div class="btn mb-1 btn-flat btn-outline-secondary rounded" id="buttonSeePassword" onclick="seePassword()">
+                                                    <div id="passwordEyeOpen">
+                                                        <img src="./icons/eye-svgrepo-com.svg" alt="">
+                                                    </div>
+                                                    <div id="passwordEyeSlash">
+                                                        <img src="./icons/eye-slash-svgrepo-com.svg" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn login-form__btn submit w-100">Ingresar</button>
+                                </form>
+                                <p class="mt-5 login-form__footer">¿No recuerdas tu contraseña? <a href="page-register.html" class="text-primary">Recordar mi contraseña</a> ahora</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+<!--**********************************
+        Footer start
+    ***********************************-->
+<div class="footer">
+    <div class="copyright">
+        <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Quixlab</a>
+            2018</p>
+    </div>
+</div>
+<!--**********************************
+    Footer end
+***********************************-->
+
+
+<script>
+
+    var isSeePassword = false
+    document.getElementById('passwordEyeSlash').style.display = 'none';
+
+    function seePassword() {
+
+        let eyeOpen = document.getElementById('passwordEyeOpen');
+        let eyeSlash = document.getElementById('passwordEyeSlash');
+        let passwordField = document.getElementById('password');
+
+        if (isSeePassword) {
+            passwordField.type = 'password';
+            eyeOpen.style.display = 'block';
+            eyeSlash.style.display = 'none';
+            isSeePassword = false;
+        } else {
+            passwordField.type = 'text';
+            eyeOpen.style.display = 'none';
+            eyeSlash.style.display = 'block';
+            isSeePassword = true;
+        }
+
+    }
+</script>

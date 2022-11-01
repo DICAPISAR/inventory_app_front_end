@@ -88,7 +88,7 @@ router.post('/:typeItemId', async (req, res, next) => {
     let typeItemId = req.params.typeItemId;
     let { typeItemName, isPerishable } = req.body;
 
-    let typeItemUpdateResponse = await typeItemService.updateTypeItemById(typeItemId, typeItemName, isPerishable, sessionId);
+    let typeItemUpdateResponse = await typeItemService.updateTypeItemById(typeItemId, typeItemName, isPerishable !== undefined, sessionId);
 
     if (typeItemUpdateResponse.isForbidden) {
         res.redirect('/logout/do');

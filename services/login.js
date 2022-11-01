@@ -1,12 +1,11 @@
 const apiCallService = require('./apiCall')
-const getConstants = require("./constants");
 
 exports.login = async (userName, password) => {
     let data = {
         'name': userName,
         'password': password
     }
-    let response = await apiCallService.post(getConstants('urlSession') + '/login', data, null)
+    let response = await apiCallService.post('/login', data, null)
     if (response.getDataError !== null) {
         return {
             'isLogin': false,

@@ -1,5 +1,4 @@
 const apiCallService = require('./apiCall')
-const getConstants = require('./constants')
 
 exports.createNewTypeItem = async (typeItemName, isPerishable, sessionId) => {
     let data = {
@@ -7,7 +6,7 @@ exports.createNewTypeItem = async (typeItemName, isPerishable, sessionId) => {
         'isPerishable': isPerishable
     };
 
-    let response = await apiCallService.post(getConstants('urlCore') + '/type_item/create', data, sessionId);
+    let response = await apiCallService.post('/type_item/create', data, sessionId);
     if (response.getDataError !== null) {
         return {
             'isTypeItemCreated': false,
@@ -22,7 +21,7 @@ exports.createNewTypeItem = async (typeItemName, isPerishable, sessionId) => {
 }
 
 exports.getTypeItemList = async (sessionId) => {
-    let response = await apiCallService.get(getConstants('urlCore') + '/type_item/list', sessionId);
+    let response = await apiCallService.get('/type_item/list', sessionId);
     if (response.getDataError !== null) {
         return {
             'typeItemList': null,
@@ -37,7 +36,7 @@ exports.getTypeItemList = async (sessionId) => {
 }
 
 exports.getTypeItemById = async (typeItemId, sessionId) => {
-    let response = await apiCallService.get(getConstants('urlCore') + '/type_item/' + typeItemId, sessionId);
+    let response = await apiCallService.get('/type_item/' + typeItemId, sessionId);
     if (response.getDataError !== null) {
         return {
             'typeItem': null,
@@ -55,7 +54,7 @@ exports.updateTypeItemById = async (typeItemId, typeItemName, isPerishable, sess
         'name': typeItemName,
         'isPerishable': isPerishable
     };
-    let response = await apiCallService.post(getConstants('urlCore') + '/type_item/' + typeItemId, data, sessionId);
+    let response = await apiCallService.post('/type_item/' + typeItemId, data, sessionId);
     if (response.getDataError !== null) {
         return {
             'typeItem': null,

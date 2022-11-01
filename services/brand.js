@@ -1,11 +1,10 @@
 const apiCallService = require('./apiCall')
-const getConstants = require('./constants')
 
 exports.createNewBrand = async (brandName, sessionId) => {
     let data = {
         'name': brandName,
     };
-    let response = await apiCallService.post(getConstants('urlCore') + '/brands/create', data, sessionId)
+    let response = await apiCallService.post('/brands/create', data, sessionId)
     if (response.getDataError !== null) {
         return {
             'isBrandCreated': false,
@@ -19,7 +18,7 @@ exports.createNewBrand = async (brandName, sessionId) => {
 }
 
 exports.getBrandList = async (sessionId) => {
-    let response = await apiCallService.get(getConstants('urlCore') + '/brands/list', sessionId);
+    let response = await apiCallService.get('/brands/list', sessionId);
     if (response.getDataError !== null) {
         return {
             'brandList': null,
@@ -33,7 +32,7 @@ exports.getBrandList = async (sessionId) => {
 }
 
 exports.getBrandById = async (brandId, sessionId) => {
-    let response = await apiCallService.get(getConstants('urlCore') + '/brands/' + brandId, sessionId);
+    let response = await apiCallService.get('/brands/' + brandId, sessionId);
     if (response.getDataError !== null) {
         return {
             'brand': null,
@@ -50,7 +49,7 @@ exports.updateBrandById = async (brandId, brandName, sessionId) => {
     let data = {
         'name': brandName,
     }
-    let response = await apiCallService.post(getConstants('urlCore') + '/brands/' + brandId, data, sessionId);
+    let response = await apiCallService.post('/brands/' + brandId, data, sessionId);
     if (response.getDataError !== null) {
         return {
             'brand': null,

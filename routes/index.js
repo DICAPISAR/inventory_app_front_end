@@ -5,8 +5,16 @@ const sessionUtils = require('./sessionUtils')
 /* GET home page. */
 router.get('/', (req, res, next) => {
   let isSessionValidate = sessionUtils.validateSession(req);
+
   if (isSessionValidate) {
-    res.render('index', { title: 'Inventory App', isWithInterface: true });
+    let infoProfile = sessionUtils.decryptJson(req.cookies.HERMES);
+    res.render('index',
+        {
+            title: 'Inventory App',
+            isWithInterface: true,
+            infoProfile: infoProfile
+        }
+    );
     return;
   }
   res.redirect('/login');

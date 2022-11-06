@@ -2,82 +2,78 @@ const apiCallService = require('./apiCall')
 
 let uri = 'localhost:8082';
 
-exports.createNewProvider = async (name, address, phoneNumber, documentNumber, email, sessionId) => {
+exports.createNewContactByProviderId = async (providerId, name, phoneNumber, email, sessionId) => {
     let data = {
         'name': name,
-        'address': address,
         'phoneNumber': phoneNumber,
-        'documentNumber': documentNumber,
         'email': email
     };
 
-    let response = await apiCallService.post(uri + '/providers/create', data, sessionId);
+    let response = await apiCallService.post(uri + '/providers/' + providerId + '/create_new_contact', data, sessionId);
     if (response.getDataError !== null) {
         return {
-            'isProviderCreated': false,
+            'isContactCreated': false,
             'isForbidden': response.isLoginError,
             'error': response.getDataError
         }
     }
 
     return {
-        'isProviderCreated': response.getDataResponse.status === 201,
+        'isContactCreated': response.getDataResponse.status === 201,
         'isForbidden': response.isLoginError,
         'error': response.getDataError
     }
 }
 
-exports.getProviderList = async (sessionId) => {
-    let response = await apiCallService.get(uri + '/providers/list', sessionId);
+exports.getContactListByProviderId = async (providerId, sessionId) => {
+    let response = await apiCallService.get(uri + '/providers/' + providerId + '/list_contacts', sessionId);
     if (response.getDataError !== null) {
         return {
-            'providerList': null,
+            'contactsList': null,
             'isForbidden': response.isLoginError,
             'error': response.getDataError
         }
     }
 
     return {
-        'providerList': response.getDataResponse.data,
+        'contactsList': response.getDataResponse.data,
         'isForbidden': response.isLoginError,
         'error': response.getDataError
     }
 }
 
-exports.getProviderById = async (providerId, sessionId) => {
-    let response = await apiCallService.get(uri + '/providers/' + providerId, sessionId);
+exports.getContactByIdAndProviderId = async (providerId, contactsId, sessionId) => {
+    let response = await apiCallService.get(uri + '/providers/' + providerId + '/contacts/' + contactsId, sessionId);
     if (response.getDataError !== null) {
         return {
-            'provider': null,
-            'isForbidden': response.isLoginError,
-            'error': response.getDataError,
-        }
-    }
-    return {
-        'provider': response.getDataResponse.data,
-        'isForbidden': response.isLoginError,
-        'error': response.getDataError,
-    }
-}
-
-exports.updateProviderById = async (providerId, name, address, phoneNumber, documentNumber, email, sessionId) => {
-    let data = {
-        'name': name,
-        'address': address,
-        'phoneNumber': phoneNumber,
-        'documentNumber': documentNumber,
-        'email': email
-    };
-    let response = await apiCallService.post(uri + '/providers/' + providerId, data, sessionId);
-    if (response.getDataError !== null) {
-        return {
-            'provider': null,
+            'contact': null,
             'isForbidden': response.isLoginError,
             'error': response.getDataError
         }
     }
     return {
-        'provider': response.getDataResponse.data,
+        'contact': response.getDataResponse.data,
+        'isForbidden': response.isLoginError,
+        'error': response.getDataError
+    }
+}
+
+exports.updateContactByIdAndProviderId = async (providerId, contactsId, name, phoneNumber, email, sessionId) => {
+    let data = {
+        'name': name,
+        'phoneNumber': phoneNumber,
+        'email': email
+    };
+    let response = await apiCallService.post(uri + '/providers/' + providerId + '/contacts/' + contactsId, data, sessionId);
+    if (response.getDataError !== null) {
+        return {
+            'contact': null,
+            'isForbidden': response.isLoginError,
+            'error': response.getDataError
+        }
+    }
+    return {
+        'contact': response.getDataResponse.data,
         'isForbidden': response.isLoginError,
         'error': response.getDataError
     }

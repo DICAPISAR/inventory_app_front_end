@@ -9,7 +9,16 @@ router.get('/create', (req, res, next) => {
     if (!isLogin) {
         res.redirect('/login');
     }
-    res.render('brand_create', { title: 'Inventory App', isWithInterface: true });
+
+    let infoProfile = sessionUtils.decryptJson(req.cookies.HERMES);
+
+    res.render('brand_create',
+        {
+            title: 'Inventory App',
+            isWithInterface: true,
+            infoProfile: infoProfile
+        }
+    );
 });
 
 /* POST brand create page. */
@@ -28,12 +37,12 @@ router.post('/create', async (req, res, next) => {
         return;
     }
 
-    if (brandCreationResponse.isBrandCreated) {
-        res.redirect('/brand/consult');
+    if (brandCreationResponse.error !== null || !brandCreationResponse.isBrandCreated) {
+        res.redirect('/error/internal_server_error');
         return;
     }
 
-    res.redirect('/brand/create')
+    res.redirect('/brand/consult');
 
 });
 
@@ -52,9 +61,22 @@ router.get('/consult', async (req, res, next) => {
         return;
     }
 
-    let brandList =  normalizeBrandList(brandGetListResponse.brandList);
+    if (brandGetListResponse.error !== null) {
+        res.redirect('/error/internal_server_error');
+        return;
+    }
 
-    res.render('brand_consult', { title: 'Inventory App', isWithInterface: true, brandList: brandList});
+    let brandList =  normalizeBrandList(brandGetListResponse.brandList);
+    let infoProfile = sessionUtils.decryptJson(req.cookies.HERMES);
+
+    res.render('brand_consult',
+        {
+            title: 'Inventory App',
+            isWithInterface: true,
+            brandList: brandList,
+            infoProfile: infoProfile
+        }
+    );
 });
 
 /* GET brand edit page. */
@@ -73,9 +95,22 @@ router.get('/:brandId', async (req, res, next) => {
         return;
     }
 
-    let brand = brandGetResponse.brand;
+    if (brandGetResponse.error !== null) {
+        res.redirect('/error/not_found');
+        return;
+    }
 
-    res.render('brand_edit', { title: 'Inventory App', isWithInterface: true, brand: brand});
+    let brand = brandGetResponse.brand;
+    let infoProfile = sessionUtils.decryptJson(req.cookies.HERMES);
+
+    res.render('brand_edit',
+        {
+            title: 'Inventory App',
+            isWithInterface: true,
+            brand: brand,
+            infoProfile: infoProfile
+        }
+    );
 });
 
 /* Post brand edit page. */
@@ -84,10 +119,10 @@ router.post('/:brandId', async (req, res, next) => {
     if (!isLogin) {
         res.redirect('/login');
     }
+
     let sessionId = req.cookies.SESSION;
     let brandId = req.params.brandId;
     let { brandName } = req.body;
-
 
     let brandUpdateResponse = await brandService.updateBrandById(brandId, brandName, sessionId);
 
@@ -96,9 +131,22 @@ router.post('/:brandId', async (req, res, next) => {
         return;
     }
 
-    let brand = brandUpdateResponse.brand;
+    if (brandUpdateResponse.error !== null) {
+        res.redirect('/error/internal_server_error');
+        return;
+    }
 
-    res.render('brand_edit', { title: 'Inventory App', isWithInterface: true, brand: brand});
+    let brand = brandUpdateResponse.brand;
+    let infoProfile = sessionUtils.decryptJson(req.cookies.HERMES);
+
+    res.render('brand_edit',
+        {
+            title: 'Inventory App',
+            isWithInterface: true,
+            brand: brand,
+            infoProfile: infoProfile
+        }
+    );
 });
 
 function normalizeBrandList(brandList) {

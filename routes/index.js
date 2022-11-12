@@ -42,17 +42,20 @@ function getDashboardInfo(dashboardResponse) {
     let count = {};
     let bar = {};
 
-    dashboardResponse.dashboardInfo.dashboards.forEach(dashboard => {
+    let dashboardsInfo = dashboardResponse.dashboardInfo.dashboards;
 
-        switch (dashboard.type) {
-            case 'count':
-                count[dashboard.name] = dashboard.data.count;
-                break;
-            case 'bar':
-                bar[dashboard.name] = dashboard.data;
-                break;
-        }
-    })
+    if (dashboardsInfo !== undefined) {
+        dashboardsInfo.forEach(dashboard => {
+            switch (dashboard.type) {
+                case 'count':
+                    count[dashboard.name] = dashboard.data.count;
+                    break;
+                case 'bar':
+                    bar[dashboard.name] = dashboard.data;
+                    break;
+            }
+        });
+    }
 
     dashboardInfo.count = count;
     dashboardInfo.bar = bar;

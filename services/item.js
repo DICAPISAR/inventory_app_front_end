@@ -1,7 +1,5 @@
 const apiCallService = require('./apiCall')
 
-let uri = 'localhost:8082';
-
 exports.createNewItem = async (name, price, brandId, typeItemId, sessionId) => {
     let data = {
         "name": name,
@@ -10,7 +8,7 @@ exports.createNewItem = async (name, price, brandId, typeItemId, sessionId) => {
         "typeItem": typeItemId
     };
 
-    let response = await apiCallService.post(uri + '/items/create/', data, sessionId);
+    let response = await apiCallService.post('/items/create/', data, sessionId);
     if (response.getDataError !== null) {
         return {
             'isItemCreated': false,
@@ -27,7 +25,7 @@ exports.createNewItem = async (name, price, brandId, typeItemId, sessionId) => {
 }
 
 exports.getItemById = async (itemId, sessionId) => {
-    let response = await apiCallService.get(uri + '/items/' + itemId, sessionId);
+    let response = await apiCallService.get('/items/' + itemId, sessionId);
     if (response.getDataError !== null) {
         return {
             'item': null,
@@ -44,7 +42,7 @@ exports.getItemById = async (itemId, sessionId) => {
 }
 
 exports.getItemList = async (sessionId) => {
-    let response = await apiCallService.get(uri + '/items/list', sessionId);
+    let response = await apiCallService.get('/items/list', sessionId);
     if (response.getDataError !== null) {
         return {
             'itemList': null,
@@ -67,7 +65,7 @@ exports.updateItemById = async (itemId, name, price, brandId, typeItemId, sessio
         "brand": brandId,
         "typeItem": typeItemId
     };
-    let response = await apiCallService.post(uri + '/items/' + itemId, data, sessionId);
+    let response = await apiCallService.post('/items/' + itemId, data, sessionId);
     if (response.getDataError !== null) {
         return {
             'item': null,

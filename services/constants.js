@@ -1,12 +1,13 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
 const constants = new Map();
-//constants.set('baseUrl', 'http://www.dicapisar.com/app_inventory');
-constants.set('baseUrl', 'http://');
-constants.set('timeout', 60000);
+constants.set('baseUrl', process.env.URL_BACK_END);
+constants.set('timeout', process.env.TIMEOUT_API_REST);
 
 
 function getConstant(key) {
-    let value = constants.get(key)
-    return value
+    return constants.get(key);
 }
 
 module.exports = getConstant;

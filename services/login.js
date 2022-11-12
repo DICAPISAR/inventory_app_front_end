@@ -1,13 +1,11 @@
 const apiCallService = require('./apiCall');
 
-let uri = 'localhost:8080';
-
 exports.login = async (userName, password) => {
     let data = {
         'name': userName,
         'password': password
     }
-    let response = await apiCallService.post(uri + '/login', data, null)
+    let response = await apiCallService.post('/login', data, null)
     if (response.getDataError !== null) {
         return {
             'loginData': null,

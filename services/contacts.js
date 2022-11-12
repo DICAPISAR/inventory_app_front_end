@@ -1,7 +1,5 @@
 const apiCallService = require('./apiCall')
 
-let uri = 'localhost:8082';
-
 exports.createNewContactByProviderId = async (providerId, name, phoneNumber, email, sessionId) => {
     let data = {
         'name': name,
@@ -9,7 +7,7 @@ exports.createNewContactByProviderId = async (providerId, name, phoneNumber, ema
         'email': email
     };
 
-    let response = await apiCallService.post(uri + '/providers/' + providerId + '/create_new_contact', data, sessionId);
+    let response = await apiCallService.post('/providers/' + providerId + '/create_new_contact', data, sessionId);
     if (response.getDataError !== null) {
         return {
             'isContactCreated': false,
@@ -26,7 +24,7 @@ exports.createNewContactByProviderId = async (providerId, name, phoneNumber, ema
 }
 
 exports.getContactListByProviderId = async (providerId, sessionId) => {
-    let response = await apiCallService.get(uri + '/providers/' + providerId + '/list_contacts', sessionId);
+    let response = await apiCallService.get('/providers/' + providerId + '/list_contacts', sessionId);
     if (response.getDataError !== null) {
         return {
             'contactsList': null,
@@ -43,7 +41,7 @@ exports.getContactListByProviderId = async (providerId, sessionId) => {
 }
 
 exports.getContactByIdAndProviderId = async (providerId, contactsId, sessionId) => {
-    let response = await apiCallService.get(uri + '/providers/' + providerId + '/contacts/' + contactsId, sessionId);
+    let response = await apiCallService.get('/providers/' + providerId + '/contacts/' + contactsId, sessionId);
     if (response.getDataError !== null) {
         return {
             'contact': null,
@@ -64,7 +62,7 @@ exports.updateContactByIdAndProviderId = async (providerId, contactsId, name, ph
         'phoneNumber': phoneNumber,
         'email': email
     };
-    let response = await apiCallService.post(uri + '/providers/' + providerId + '/contacts/' + contactsId, data, sessionId);
+    let response = await apiCallService.post('/providers/' + providerId + '/contacts/' + contactsId, data, sessionId);
     if (response.getDataError !== null) {
         return {
             'contact': null,

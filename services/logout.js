@@ -1,9 +1,7 @@
 const apiCallService = require('./apiCall')
 
-let uri = 'localhost:8080';
-
 exports.logout = async (sessionId) => {
-    let response = await apiCallService.post(uri + '/logout', null, sessionId)
+    let response = await apiCallService.post('/logout', null, sessionId)
     if (response.getDataError !== null) {
         return {
             isLogout: false,

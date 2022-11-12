@@ -1,13 +1,11 @@
 const apiCallService = require('./apiCall');
 
-let uri = 'localhost:8081';
-
 exports.changePassword = async (newPassword, sessionId) => {
     let data = {
         'newPassword': newPassword
     }
 
-    let response = await apiCallService.post(uri + '/users/update_password', data, sessionId);
+    let response = await apiCallService.post('/users/update_password', data, sessionId);
 
     if (response.getDataError !== null) {
         return {

@@ -1,7 +1,5 @@
 const apiCallService = require('./apiCall')
 
-let uri = 'localhost:8082';
-
 exports.createNewProvider = async (name, address, phoneNumber, documentNumber, email, sessionId) => {
     let data = {
         'name': name,
@@ -11,7 +9,7 @@ exports.createNewProvider = async (name, address, phoneNumber, documentNumber, e
         'email': email
     };
 
-    let response = await apiCallService.post(uri + '/providers/create', data, sessionId);
+    let response = await apiCallService.post('/providers/create', data, sessionId);
     if (response.getDataError !== null) {
         return {
             'isProviderCreated': false,
@@ -28,7 +26,7 @@ exports.createNewProvider = async (name, address, phoneNumber, documentNumber, e
 }
 
 exports.getProviderList = async (sessionId) => {
-    let response = await apiCallService.get(uri + '/providers/list', sessionId);
+    let response = await apiCallService.get('/providers/list', sessionId);
     if (response.getDataError !== null) {
         return {
             'providerList': null,
@@ -45,7 +43,7 @@ exports.getProviderList = async (sessionId) => {
 }
 
 exports.getProviderById = async (providerId, sessionId) => {
-    let response = await apiCallService.get(uri + '/providers/' + providerId, sessionId);
+    let response = await apiCallService.get('/providers/' + providerId, sessionId);
     if (response.getDataError !== null) {
         return {
             'provider': null,
@@ -68,7 +66,7 @@ exports.updateProviderById = async (providerId, name, address, phoneNumber, docu
         'documentNumber': documentNumber,
         'email': email
     };
-    let response = await apiCallService.post(uri + '/providers/' + providerId, data, sessionId);
+    let response = await apiCallService.post('/providers/' + providerId, data, sessionId);
     if (response.getDataError !== null) {
         return {
             'provider': null,

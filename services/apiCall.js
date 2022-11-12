@@ -1,5 +1,4 @@
 const getConstant = require('./constants')
-const {response} = require("express");
 const axios = require('axios').create({
     baseURL: getConstant('baseUrl'),
     timeout: getConstant('timeout'),

@@ -79,6 +79,62 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Listado de Contactos</h4>
+                    <div class="row">
+                        <div class="col-lg-12 ml-auto">
+                            <button type="button" class="btn btn-success" id="buttonForm"
+                                    name="buttonForm" onclick="window.location.href='/provider/{{provider.id}}/create_new_contact';">Crear Nuevo Contacto</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered zero-configuration">
+                            <thead>
+                            <tr>
+                                <th>Ver</th>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Correo Electrónico</th>
+                                <th>Número Telefónico</th>
+                                <th>Fecha Creación</th>
+                                <th>Fecha Actualización</th>
+                                <th>Estado</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#each contactList}}
+                                <tr>
+                                    <td align="center"><a href="/provider/{{provider}}/contact/{{id}}"><img src="/icons/eye-svgrepo-com.svg" style="width: 40%" alt=""></a></td>
+                                    <td>{{id}}</td>
+                                    <td>{{name}}</td>
+                                    <td>{{email}}</td>
+                                    <td>{{phoneNumber}}</td>
+                                    <td>{{creationDate}}</td>
+                                    <td>{{updateDate}}</td>
+                                    <td>{{active}}</td>
+                                </tr>
+                            {{/each}}
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th>Ver</th>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Correo Electrónico</th>
+                                <th>Número Telefónico</th>
+                                <th>Fecha Creación</th>
+                                <th>Fecha Actualización</th>
+                                <th>Estado</th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 

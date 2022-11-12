@@ -10,7 +10,12 @@ router.get('/', (req, res, next) => {
         res.redirect('/')
         return;
     }
-    res.render('logout', { title: 'Inventory App', isWithInterface: false });
+    res.render('logout',
+        {
+            title: 'Inventory App',
+            isWithInterface: false
+        }
+    );
 });
 
 /* Get to do logout page. */
@@ -20,10 +25,13 @@ router.get('/do', async (req, res, next) => {
         res.redirect('/')
         return;
     }
+
     let sessionId = req.cookies.SESSION;
     let logoutResponse = await logoutService.logout(sessionId);
+
     if (logoutResponse.isLogout) {
         res.clearCookie('SESSION');
+        res.clearCookie('HERMES');
         res.redirect('/logout');
         return;
     }

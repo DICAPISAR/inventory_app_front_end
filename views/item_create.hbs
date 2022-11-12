@@ -1,0 +1,144 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-validation">
+                        <h4 class="card-title">Crear Nuevo Artículo</h4>
+                        <div class="basic-form">
+                            <form class="form-valide" action="/item/create" method="post" id="form" name="form">
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="name">Nombre del Artículo
+                                        <span class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="name"
+                                               name="name" placeholder="Ingresar nombre de Artículo..." onchange="validateInput('name')">
+                                        <div class="col-lg text-danger" id="name-validate"
+                                             style="display: none;">
+                                            Éste campo no debe estar vacio
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="price">Precio
+                                        <span class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="number" class="form-control" id="price"
+                                               name="price" placeholder="Ingresar precio..." onchange="validateInput('price')">
+                                        <div class="col-lg text-danger" id="price-validate"
+                                             style="display: none;">
+                                            Éste campo no debe estar vacio
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="typeItemId">Tipo de Item
+                                        <span class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <select class="form-control" id="typeItemId" name="typeItemId" onchange="validateInput('typeItemId')">
+                                            {{#generateSelect typeItemList undefinded}} {{/generateSelect}}
+                                        </select>
+                                    </div>
+                                    <div class="col-lg text-danger" id="typeItemId-validate"
+                                         style="display: none;">
+                                        Debe seleccionar una opción
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="brandId">Marca
+                                        <span class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <select class="form-control" id="brandId" name="brandId" onchange="validateInput('brandId')">
+                                            {{#generateSelect brandList undefinded}} {{/generateSelect}}
+                                        </select>
+                                    </div>
+                                    <div class="col-lg text-danger" id="brandId-validate"
+                                         style="display: none;">
+                                        Debe seleccionar una opción
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-lg-8 ml-auto">
+                                        <button type="button" class="btn btn-primary" id="buttonForm"
+                                                name="buttonForm">Crear Nuevo Artículo</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#buttonForm").on("click", function () {
+
+        let isValidateForm = true;
+        let name = document.getElementById('name').value;
+        let price = document.getElementById('price').value;
+        let typeItemId = document.getElementById('typeItemId').value;
+        let brandId = document.getElementById('brandId').value;
+
+
+        if (name === '') {
+            let brandNameValidate = document.getElementById('name-validate');
+            brandNameValidate.style.display = 'block';
+            isValidateForm = false;
+        }
+
+        if (price === '') {
+            let priceValidate = document.getElementById('price-validate');
+            priceValidate.style.display = 'block';
+            isValidateForm = false;
+        }
+
+        if (typeItemId === '') {
+            let typeItemIdValidate = document.getElementById('typeItemId-validate');
+            typeItemIdValidate.style.display = 'block';
+            isValidateForm = false;
+        }
+
+        if (brandId === '') {
+            let brandIdValidate = document.getElementById('brandId-validate');
+            brandIdValidate.style.display = 'block';
+            isValidateForm = false;
+        }
+
+        if (isValidateForm) {
+            document.getElementById('form').submit();
+        } else {
+            toastr.warning("Algunos campos presentan errores en la información ingresada", "Errror en los Campos",
+                    {
+                        positionClass: "toast-top-right",
+                        timeOut: 5e3,
+                        closeButton: !0,
+                        debug: !1,
+                        newestOnTop: !0,
+                        progressBar: !0,
+                        preventDuplicates: !0,
+                        onclick: null,
+                        showDuration: "300",
+                        hideDuration: "1000",
+                        extendedTimeOut: "1000",
+                        showEasing: "swing",
+                        hideEasing: "linear",
+                        showMethod: "fadeIn",
+                        hideMethod: "fadeOut",
+                        tapToDismiss: !1
+                    }
+            )
+        }
+    });
+
+    function validateInput(inputId) {
+        let input = document.getElementById(inputId).value;
+        let inputToValidateValidate = document.getElementById(inputId + '-validate');
+        if (input === '') {
+            inputToValidateValidate.style.display = 'block';
+        } else {
+            inputToValidateValidate.style.display = 'none';
+        }
+    }
+</script>

@@ -9,7 +9,16 @@ router.get('/create', (req, res, next) => {
     if (!isLogin) {
         res.redirect('/login');
     }
-    res.render('type_item_create', { title: 'Inventory App', isWithInterface: true });
+
+    let infoProfile = sessionUtils.decryptJson(req.cookies.HERMES);
+
+    res.render('type_item_create',
+        {
+            title: 'Inventory App',
+            isWithInterface: true,
+            infoProfile: infoProfile
+        }
+    );
 });
 
 /* POST type item create page. */
@@ -53,8 +62,16 @@ router.get('/consult', async (req, res, next) => {
     }
 
     let typeItemList =  normalizeTypeItemList(typeItemGetListResponse.typeItemList);
+    let infoProfile = sessionUtils.decryptJson(req.cookies.HERMES);
 
-    res.render('type_item_consult', { title: 'Inventory App', isWithInterface: true, typeItemList: typeItemList});
+    res.render('type_item_consult',
+        {
+            title: 'Inventory App',
+            isWithInterface: true,
+            typeItemList: typeItemList,
+            infoProfile: infoProfile
+        }
+    );
 });
 
 /* GET type item edit page. */
@@ -74,8 +91,16 @@ router.get('/:typeItemId', async (req, res, next) => {
     }
 
     let typeItem = typeItemGetResponse.typeItem;
+    let infoProfile = sessionUtils.decryptJson(req.cookies.HERMES);
 
-    res.render('type_item_edit', { title: 'Inventory App', isWithInterface: true, typeItem: typeItem});
+    res.render('type_item_edit',
+        {
+            title: 'Inventory App',
+            isWithInterface: true,
+            typeItem: typeItem,
+            infoProfile: infoProfile
+        },
+    );
 });
 
 /* Post type item edit page. */
@@ -96,8 +121,16 @@ router.post('/:typeItemId', async (req, res, next) => {
     }
 
     let typeItem = typeItemUpdateResponse.typeItem;
+    let infoProfile = sessionUtils.decryptJson(req.cookies.HERMES);
 
-    res.render('type_item_edit', { title: 'Inventory App', isWithInterface: true, typeItem: typeItem});
+    res.render('type_item_edit',
+        {
+            title: 'Inventory App',
+            isWithInterface: true,
+            typeItem: typeItem,
+            infoProfile: infoProfile
+        }
+    );
 });
 
 function normalizeTypeItemList(typeItemList) {

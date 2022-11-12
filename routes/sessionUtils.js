@@ -1,3 +1,5 @@
+const crypto = require('crypto-js');
+
 exports.validateSession = (req) => {
     let cookies = req.cookies;
     let session = cookies.SESSION;
@@ -19,4 +21,25 @@ exports.getCookie = (cookies, key) => {
         }
     }
     return null;
+}
+
+exports.encryptJson = (json) => {
+    let string = JSON.stringify(json);
+    return crypto.AES.encrypt(string, 'secret key 123').toString();
+}
+
+exports.decryptJson = (string) => {
+    let bytes = crypto.AES.decrypt(string, 'secret key 123');
+    let stringDecrypt = bytes.toString(crypto.enc.Utf8);
+    return JSON.parse(stringDecrypt)
+}
+
+exports.getUserIdFromEncrypt = (stringEncrypt) => {
+    let infoSession = this.decryptJson(stringEncrypt)
+    return infoSession.id;
+}
+
+exports.getRolIdFromEncrypt = (stringEncrypt) => {
+    let infoSession = this.decryptJson(stringEncrypt)
+    return infoSession.rolId;
 }

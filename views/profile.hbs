@@ -1,0 +1,313 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-validation">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="media align-items-center mb-4">
+                                        <img class="mr-3" src="/images/profile/{{infoProfile.id}}.png" width="80" height="80" alt="">
+                                        <div class="media-body">
+                                            <h3 class="mb-0">{{infoProfile.name}}</h3>
+                                            <p class="text-muted mb-0">{{infoProfile.rolName}}</p>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updatePassword">Actualizar Contraseña</button>
+                                                </div>
+                                                <div class="col-3">
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updatePhoto">Carbiar Imagen de Foto</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="updatePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Actualizar Contraseña</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/profile/change_password" method="post" id="passwordForm" name="passwordForm" class="login-input">
+                    <div class="form-group">
+                        <label for="newPassword" class="col-form-label">Nueva Contraseña:<span class="text-danger">*</span></label>
+                        <div class="row">
+                            <div class="col-9">
+                                <input type="password" class="form-control"  id="newPassword" name="newPassword" onchange="validateInput()">
+                            </div>
+                            <div class="col">
+                                <div class="btn mb-1 btn-flat btn-outline-secondary rounded" id="buttonSeePassword" onclick="seeNewPassword()">
+                                    <div id="newPasswordEyeOpen">
+                                        <img src="./icons/eye-svgrepo-com.svg" alt="">
+                                    </div>
+                                    <div id="newPasswordEyeSlash">
+                                        <img src="./icons/eye-slash-svgrepo-com.svg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg text-danger" id="newPassword-validate"
+                             style="display: none;">
+                            Éste campo no debe estar vacio
+                        </div>
+                        <div class="col-lg text-danger" id="newPassword-noSame"
+                             style="display: none;">
+                            La contraseña debe ser igual
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="repeatNewPassword" class="col-form-label">Repetir Nueva Contraseña:<span class="text-danger">*</span></label>
+                        <div class="row">
+                            <div class="col-9">
+                                <input type="password" class="form-control"  id="repeatNewPassword" name="repeatNewPassword" onchange="validateInput()">
+                            </div>
+                            <div class="col">
+                                <div class="btn mb-1 btn-flat btn-outline-secondary rounded" id="buttonSeePassword" onclick="seeNewPasswordRepeat()">
+                                    <div id="newPasswordRepeatEyeOpen">
+                                        <img src="./icons/eye-svgrepo-com.svg" alt="">
+                                    </div>
+                                    <div id="newPasswordRepeatEyeSlash">
+                                        <img src="./icons/eye-slash-svgrepo-com.svg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg text-danger" id="repeatNewPassword-validate"
+                             style="display: none;">
+                            Éste campo no debe estar vacio
+                        </div>
+                        <div class="col-lg text-danger" id="repeatNewPassword-noSame"
+                             style="display: none;">
+                            La contraseña debe ser igual
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="buttonFormChangePassword">Actualizar Contraseña</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="updatePhoto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cambiar Imagen de Foto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/profile/change_photo" method="post" id="photoForm" name="photoForm" class="login-input" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="newPhoto" class="col-form-label">Nueva Foto:<span class="text-danger">*</span></label>
+                        <div class="row">
+                            <div class="col-9">
+                                <input type="file" class="form-control"  id="newPhoto" name="newPhoto" accept="image/png">
+                            </div>
+                        </div>
+                        <div class="col-lg text-danger" id="newPhoto-validate"
+                             style="display: none;">
+                            Debe cargar una imagen .png
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="buttonFormChangePhoto">Cambiar Foto</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#buttonFormChangePassword").on("click", function () {
+
+        let isValidateForm = true;
+        let newPassword = document.getElementById('newPassword').value;
+        let repeatNewPassword = document.getElementById('repeatNewPassword').value;
+
+        if (newPassword === '') {
+            let newPasswordValidate = document.getElementById('newPassword-validate');
+            newPasswordValidate.style.display = 'block';
+            isValidateForm = false;
+        }
+
+        if (repeatNewPassword === '') {
+            let repeatNewPasswordValidate = document.getElementById('repeatNewPassword-validate');
+            repeatNewPasswordValidate.style.display = 'block';
+            isValidateForm = false;
+        }
+
+        if (isValidateForm === true) {
+            if (newPassword !== repeatNewPassword) {
+                let newPasswordNoSame = document.getElementById('newPassword-noSame');
+                let repeatNewPasswordNoSame = document.getElementById('repeatNewPassword-noSame');
+
+                newPasswordNoSame.style.display = 'block';
+                repeatNewPasswordNoSame.style.display = 'block';
+
+                isValidateForm = false;
+            }
+        }
+
+        if (isValidateForm) {
+            document.getElementById('passwordForm').submit();
+        } else {
+            toastr.warning("Algunos campos presentan errores en la información ingresada", "Errror en los Campos",
+                    {
+                        positionClass: "toast-top-right",
+                        timeOut: 5e3,
+                        closeButton: !0,
+                        debug: !1,
+                        newestOnTop: !0,
+                        progressBar: !0,
+                        preventDuplicates: !0,
+                        onclick: null,
+                        showDuration: "300",
+                        hideDuration: "1000",
+                        extendedTimeOut: "1000",
+                        showEasing: "swing",
+                        hideEasing: "linear",
+                        showMethod: "fadeIn",
+                        hideMethod: "fadeOut",
+                        tapToDismiss: !1
+                    }
+            )
+        }
+    });
+
+    function validateInput() {
+        let newPassword = document.getElementById('newPassword').value;
+        let repeatNewPassword = document.getElementById('repeatNewPassword').value;
+
+        let newPasswordValidate = document.getElementById('newPassword-validate');
+        let repeatNewPasswordValidate = document.getElementById('repeatNewPassword-validate');
+
+        let newPasswordNoSame = document.getElementById('newPassword-noSame');
+        let repeatNewPasswordNoSame = document.getElementById('repeatNewPassword-noSame');
+
+        if (newPassword === '') {
+            newPasswordValidate.style.display = 'block';
+        } else {
+            newPasswordValidate.style.display = 'none';
+        }
+
+        if (repeatNewPassword === '') {
+            repeatNewPasswordValidate.style.display = 'block';
+        } else {
+            repeatNewPasswordValidate.style.display = 'none';
+        }
+
+        if (newPassword === repeatNewPassword) {
+            newPasswordNoSame.style.display = 'none';
+            repeatNewPasswordNoSame.style.display = 'none';
+        } else {
+            newPasswordNoSame.style.display = 'block';
+            repeatNewPasswordNoSame.style.display = 'block';
+        }
+    }
+
+    let isSeeNewPassword = false;
+    let isSeeNewPasswordRepeat = false;
+
+    document.getElementById('newPasswordEyeSlash').style.display = 'none';
+    document.getElementById('newPasswordRepeatEyeSlash').style.display = 'none';
+
+    function seeNewPassword() {
+
+        let eyeOpen = document.getElementById('newPasswordEyeOpen');
+        let eyeSlash = document.getElementById('newPasswordEyeSlash');
+        let passwordField = document.getElementById('newPassword');
+
+        if (isSeeNewPassword) {
+            passwordField.type = 'password';
+            eyeOpen.style.display = 'block';
+            eyeSlash.style.display = 'none';
+            isSeeNewPassword = false;
+        } else {
+            passwordField.type = 'text';
+            eyeOpen.style.display = 'none';
+            eyeSlash.style.display = 'block';
+            isSeeNewPassword = true;
+        }
+
+    }
+
+    function seeNewPasswordRepeat() {
+
+        let eyeOpen = document.getElementById('newPasswordRepeatEyeOpen');
+        let eyeSlash = document.getElementById('newPasswordRepeatEyeSlash');
+        let passwordField = document.getElementById('repeatNewPassword');
+
+        if (isSeeNewPasswordRepeat) {
+            passwordField.type = 'password';
+            eyeOpen.style.display = 'block';
+            eyeSlash.style.display = 'none';
+            isSeeNewPasswordRepeat = false;
+        } else {
+            passwordField.type = 'text';
+            eyeOpen.style.display = 'none';
+            eyeSlash.style.display = 'block';
+            isSeeNewPasswordRepeat = true;
+        }
+
+    }
+
+    $("#buttonFormChangePhoto").on("click", function () {
+
+        let isValidateForm = true;
+        let newPhoto = document.getElementById('newPhoto').value;
+
+        if (newPhoto === '') {
+            let newPhotoValidate = document.getElementById('newPhoto-validate');
+            newPhotoValidate.style.display = 'block';
+            isValidateForm = false;
+        }
+
+
+        if (isValidateForm) {
+            document.getElementById('photoForm').submit();
+        } else {
+            toastr.warning("Debe cargar una imagen en formato .png", "No ha subido foto",
+                    {
+                        positionClass: "toast-top-right",
+                        timeOut: 5e3,
+                        closeButton: !0,
+                        debug: !1,
+                        newestOnTop: !0,
+                        progressBar: !0,
+                        preventDuplicates: !0,
+                        onclick: null,
+                        showDuration: "300",
+                        hideDuration: "1000",
+                        extendedTimeOut: "1000",
+                        showEasing: "swing",
+                        hideEasing: "linear",
+                        showMethod: "fadeIn",
+                        hideMethod: "fadeOut",
+                        tapToDismiss: !1
+                    }
+            )
+        }
+    });
+</script>

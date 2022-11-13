@@ -1,0 +1,270 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Listado de Artículos</h4>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered zero-configuration">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nombre Usuario</th>
+                                <th>Rol</th>
+                                <th>Fecha Creación</th>
+                                <th>Fecha Actualización</th>
+                                <th>Contraseña</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#each userList}}
+                                <tr>
+                                    <td>{{id}}</td>
+                                    <td>{{name}}</td>
+                                    <td>{{nameRol}}</td>
+                                    <td>{{creationDate}}</td>
+                                    <td>{{updateDate}}</td>
+                                    <td align="center">
+                                        <a style="cursor: pointer;" data-toggle="modal" data-target="#updatePassword" onclick="changPassword({{id}})">
+                                            <img src="/icons/retweet.svg" style="width: 20%" alt="">
+                                        </a>
+                                    </td>
+                                </tr>
+                            {{/each}}
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nombre Usuario</th>
+                                <th>Rol</th>
+                                <th>Fecha Creación</th>
+                                <th>Fecha Actualización</th>
+                                <th>Contraseña</th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="updatePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Actualizar Contraseña</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="post" id="passwordForm" name="passwordForm" class="login-input">
+                    <div class="form-group">
+                        <label for="newPassword" class="col-form-label">Nueva Contraseña:<span class="text-danger">*</span></label>
+                        <div class="row">
+                            <div class="col-9">
+                                <input type="password" class="form-control"  id="newPassword" name="newPassword" onchange="validateInput()">
+                            </div>
+                            <div class="col">
+                                <div class="btn mb-1 btn-flat btn-outline-secondary rounded" id="buttonSeePassword" onclick="seeNewPassword()">
+                                    <div id="newPasswordEyeOpen">
+                                        <img src="/icons/eye-svgrepo-com.svg" alt="">
+                                    </div>
+                                    <div id="newPasswordEyeSlash">
+                                        <img src="/icons/eye-slash-svgrepo-com.svg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg text-danger" id="newPassword-validate"
+                             style="display: none;">
+                            Éste campo no debe estar vacio
+                        </div>
+                        <div class="col-lg text-danger" id="newPassword-noSame"
+                             style="display: none;">
+                            La contraseña debe ser igual
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="repeatNewPassword" class="col-form-label">Repetir Nueva Contraseña:<span class="text-danger">*</span></label>
+                        <div class="row">
+                            <div class="col-9">
+                                <input type="password" class="form-control"  id="repeatNewPassword" name="repeatNewPassword" onchange="validateInput()">
+                            </div>
+                            <div class="col">
+                                <div class="btn mb-1 btn-flat btn-outline-secondary rounded" id="buttonSeePassword" onclick="seeNewPasswordRepeat()">
+                                    <div id="newPasswordRepeatEyeOpen">
+                                        <img src="/icons/eye-svgrepo-com.svg" alt="">
+                                    </div>
+                                    <div id="newPasswordRepeatEyeSlash">
+                                        <img src="/icons/eye-slash-svgrepo-com.svg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg text-danger" id="repeatNewPassword-validate"
+                             style="display: none;">
+                            Éste campo no debe estar vacio
+                        </div>
+                        <div class="col-lg text-danger" id="repeatNewPassword-noSame"
+                             style="display: none;">
+                            La contraseña debe ser igual
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="buttonFormChangePassword">Actualizar Contraseña</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var userIdToChangePassword = undefined;
+
+    function changPassword(userId) {
+        userIdToChangePassword = userId;
+    }
+
+    $("#buttonFormChangePassword").on("click", function () {
+
+        let isValidateForm = true;
+        let newPassword = document.getElementById('newPassword').value;
+        let repeatNewPassword = document.getElementById('repeatNewPassword').value;
+
+        if (newPassword === '') {
+            let newPasswordValidate = document.getElementById('newPassword-validate');
+            newPasswordValidate.style.display = 'block';
+            isValidateForm = false;
+        }
+
+        if (repeatNewPassword === '') {
+            let repeatNewPasswordValidate = document.getElementById('repeatNewPassword-validate');
+            repeatNewPasswordValidate.style.display = 'block';
+            isValidateForm = false;
+        }
+
+        if (isValidateForm === true) {
+            if (newPassword !== repeatNewPassword) {
+                let newPasswordNoSame = document.getElementById('newPassword-noSame');
+                let repeatNewPasswordNoSame = document.getElementById('repeatNewPassword-noSame');
+
+                newPasswordNoSame.style.display = 'block';
+                repeatNewPasswordNoSame.style.display = 'block';
+
+                isValidateForm = false;
+            }
+        }
+
+        if (isValidateForm) {
+            let userId = userIdToChangePassword;
+            if (userId !== undefined) {
+                let formToChangePassword = document.getElementById('passwordForm');
+                formToChangePassword.setAttribute('action', '/user/change_password/' + userId);
+                formToChangePassword.submit();
+            }
+        } else {
+            toastr.warning("Algunos campos presentan errores en la información ingresada", "Errror en los Campos",
+                    {
+                        positionClass: "toast-top-right",
+                        timeOut: 5e3,
+                        closeButton: !0,
+                        debug: !1,
+                        newestOnTop: !0,
+                        progressBar: !0,
+                        preventDuplicates: !0,
+                        onclick: null,
+                        showDuration: "300",
+                        hideDuration: "1000",
+                        extendedTimeOut: "1000",
+                        showEasing: "swing",
+                        hideEasing: "linear",
+                        showMethod: "fadeIn",
+                        hideMethod: "fadeOut",
+                        tapToDismiss: !1
+                    }
+            )
+        }
+    });
+
+    function validateInput() {
+        let newPassword = document.getElementById('newPassword').value;
+        let repeatNewPassword = document.getElementById('repeatNewPassword').value;
+
+        let newPasswordValidate = document.getElementById('newPassword-validate');
+        let repeatNewPasswordValidate = document.getElementById('repeatNewPassword-validate');
+
+        let newPasswordNoSame = document.getElementById('newPassword-noSame');
+        let repeatNewPasswordNoSame = document.getElementById('repeatNewPassword-noSame');
+
+        if (newPassword === '') {
+            newPasswordValidate.style.display = 'block';
+        } else {
+            newPasswordValidate.style.display = 'none';
+        }
+
+        if (repeatNewPassword === '') {
+            repeatNewPasswordValidate.style.display = 'block';
+        } else {
+            repeatNewPasswordValidate.style.display = 'none';
+        }
+
+        if (newPassword === repeatNewPassword) {
+            newPasswordNoSame.style.display = 'none';
+            repeatNewPasswordNoSame.style.display = 'none';
+        } else {
+            newPasswordNoSame.style.display = 'block';
+            repeatNewPasswordNoSame.style.display = 'block';
+        }
+    }
+
+    let isSeeNewPassword = false;
+    let isSeeNewPasswordRepeat = false;
+
+    document.getElementById('newPasswordEyeSlash').style.display = 'none';
+    document.getElementById('newPasswordRepeatEyeSlash').style.display = 'none';
+
+    function seeNewPassword() {
+
+        let eyeOpen = document.getElementById('newPasswordEyeOpen');
+        let eyeSlash = document.getElementById('newPasswordEyeSlash');
+        let passwordField = document.getElementById('newPassword');
+
+        if (isSeeNewPassword) {
+            passwordField.type = 'password';
+            eyeOpen.style.display = 'block';
+            eyeSlash.style.display = 'none';
+            isSeeNewPassword = false;
+        } else {
+            passwordField.type = 'text';
+            eyeOpen.style.display = 'none';
+            eyeSlash.style.display = 'block';
+            isSeeNewPassword = true;
+        }
+
+    }
+
+    function seeNewPasswordRepeat() {
+
+        let eyeOpen = document.getElementById('newPasswordRepeatEyeOpen');
+        let eyeSlash = document.getElementById('newPasswordRepeatEyeSlash');
+        let passwordField = document.getElementById('repeatNewPassword');
+
+        if (isSeeNewPasswordRepeat) {
+            passwordField.type = 'password';
+            eyeOpen.style.display = 'block';
+            eyeSlash.style.display = 'none';
+            isSeeNewPasswordRepeat = false;
+        } else {
+            passwordField.type = 'text';
+            eyeOpen.style.display = 'none';
+            eyeSlash.style.display = 'block';
+            isSeeNewPasswordRepeat = true;
+        }
+
+    }
+</script>

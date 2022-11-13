@@ -1,0 +1,125 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-validation">
+                        <h4 class="card-title">Crear Nuevo Usuario</h4>
+                        <div class="basic-form">
+                            <form class="form-valide" action="/user/create" method="post" id="form" name="form">
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="name">Nombre del Usuario
+                                        <span class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="name"
+                                               name="name" placeholder="Ingresar nombre de Usuario..." onchange="validateInput('name'); validateSpaceInput('name')">
+                                        <div class="col-lg text-danger" id="name-validate"
+                                             style="display: none;">
+                                            Éste campo no debe estar vacio
+                                        </div>
+                                        <div class="col-lg text-danger" id="name-space-validate"
+                                             style="display: none;">
+                                            El nombre de usuario no debe tener espacios
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="rolId">Rol
+                                        <span class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <select class="form-control" id="rolId" name="rolId" onchange="validateInput('rolId')">
+                                            {{#generateSelect rolList undefinded}} {{/generateSelect}}
+                                        </select>
+                                    </div>
+                                    <div class="col-lg text-danger" id="rolId-validate"
+                                         style="display: none;">
+                                        Debe seleccionar una opción
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-lg-8 ml-auto">
+                                        <button type="button" class="btn btn-primary" id="buttonForm"
+                                                name="buttonForm">Crear Nuevo Usuario</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#buttonForm").on("click", function () {
+
+        let isValidateForm = true;
+        let name = document.getElementById('name').value;
+        let rolId = document.getElementById('rolId').value;
+
+        if (name === '') {
+            let brandNameValidate = document.getElementById('name-validate');
+            brandNameValidate.style.display = 'block';
+            isValidateForm = false;
+        } else {
+            let isNameHasSpaces = name.includes(" ");
+            if (isNameHasSpaces) {
+                isValidateForm = false;
+                let nameSpaceValidate = document.getElementById('name-space-validate');
+                nameSpaceValidate.style.display = 'block';
+            }
+        }
+
+        if (rolId === '') {
+            let rolValidate = document.getElementById('rolId-validate');
+            rolValidate.style.display = 'block';
+            isValidateForm = false;
+        }
+
+        if (isValidateForm) {
+            document.getElementById('form').submit();
+        } else {
+            toastr.warning("Algunos campos presentan errores en la información ingresada", "Errror en los Campos",
+                    {
+                        positionClass: "toast-top-right",
+                        timeOut: 5e3,
+                        closeButton: !0,
+                        debug: !1,
+                        newestOnTop: !0,
+                        progressBar: !0,
+                        preventDuplicates: !0,
+                        onclick: null,
+                        showDuration: "300",
+                        hideDuration: "1000",
+                        extendedTimeOut: "1000",
+                        showEasing: "swing",
+                        hideEasing: "linear",
+                        showMethod: "fadeIn",
+                        hideMethod: "fadeOut",
+                        tapToDismiss: !1
+                    }
+            )
+        }
+    });
+
+    function validateInput(inputId) {
+        let input = document.getElementById(inputId).value;
+        let inputToValidateValidate = document.getElementById(inputId + '-validate');
+        if (input === '') {
+            inputToValidateValidate.style.display = 'block';
+        } else {
+            inputToValidateValidate.style.display = 'none';
+        }
+    }
+
+    function validateSpaceInput(inputId) {
+        let input = document.getElementById(inputId).value;
+        let inputToValidateValidate = document.getElementById(inputId + '-space-validate');
+        if (input.includes(" ")) {
+            inputToValidateValidate.style.display = 'block';
+        } else {
+            inputToValidateValidate.style.display = 'none';
+        }
+    }
+</script>

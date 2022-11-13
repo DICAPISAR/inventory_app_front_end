@@ -90,19 +90,18 @@
                     Search
                 ***********************************-->
                 <div class="header-left">
-                    <div class="input-group icons">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i
-                                    class="mdi mdi-magnify"></i></span>
+                    <form action="/search" method="post" id="form">
+                        <div class="input-group icons">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i
+                                        class="mdi mdi-magnify"></i></span>
+                            </div>
+                                <input type="search" class="form-control" placeholder="Buscar"
+                                       aria-label="Buscar" id="search" name="search">
+                                <div style="width: 10px"></div>
+                                <button type="button" class="btn btn-primary" id="buttonForm" name="buttonForm">Buscar</button>
                         </div>
-                        <input type="search" class="form-control" placeholder="Search Dashboard"
-                               aria-label="Search Dashboard">
-                        <div class="drop-down animated flipInX d-md-none">
-                            <form action="#">
-                                <input type="text" class="form-control" placeholder="Search">
-                            </form>
-                        </div>
-                    </div>
+                    </form>
                 </div>
 
                 <!--**********************************
@@ -148,7 +147,7 @@
                             <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="/">Home 1</a></li>
+                            <li><a href="/">Principal</a></li>
                             <!-- <li><a href="./index-2.html">Home 2</a></li> -->
                         </ul>
                     </li>
@@ -188,17 +187,6 @@
                             <li><a href="/provider/consult"><i class="icon-list menu-icon"></i>Consultar</a></li>
                         </ul>
                     </li>
-                    <!--
-                    <li class="mega-menu mega-menu-sm">
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-phone menu-icon"></i><span class="nav-text">Contactos</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="/layout-blank.html"><i class="icon-plus menu-icon"></i>Crear</a></li>
-                            <li><a href="/layout.html"><i class="icon-list menu-icon"></i>Consultar</a></li>
-                        </ul>
-                    </li>
-                    -->
                     <li class="mega-menu mega-menu-sm">
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon-grid menu-icon"></i><span class="nav-text">Tipos de Articulo</span>
@@ -217,15 +205,7 @@
                             <li><a href="/brand/consult"><i class="icon-list menu-icon"></i>Consultar</a></li>
                         </ul>
                     </li>
-                    <li class="mega-menu mega-menu-sm">
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-user menu-icon"></i><span class="nav-text">Gestion de Usuarios</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="/layout-blank.html"><i class="icon-plus menu-icon"></i>Crear</a></li>
-                            <li><a href="/layout.html"><i class="icon-list menu-icon"></i>Consultar</a></li>
-                        </ul>
-                    </li>
+                    {{#adminOptionUserManager infoProfile}}{{/adminOptionUserManager}}
                 </ul>
             </div>
         </div>
@@ -261,6 +241,7 @@
     ***********************************-->
     {{/if}}
 </div>
+
 <script src="/js/custom.min.js"></script>
 <script src="/js/settings.js"></script>
 <script src="/js/gleek.js"></script>
@@ -291,9 +272,45 @@
 <script src="/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
 <script src="/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
 
-
-
 <script src="/js/dashboard/dashboard-1.js"></script>
+
+
+<script>
+    $("#buttonForm").on("click", function () {
+
+        let isValidateForm = true;
+        let search = document.getElementById('search').value;
+
+        if (search === '') {
+            isValidateForm = false;
+        }
+
+        if (isValidateForm) {
+            document.getElementById('form').submit();
+        } else {
+            toastr.warning("Debes ingresar algun valor para poder general la busqueda", "Error en busqueda",
+                    {
+                        positionClass: "toast-top-right",
+                        timeOut: 5e3,
+                        closeButton: !0,
+                        debug: !1,
+                        newestOnTop: !0,
+                        progressBar: !0,
+                        preventDuplicates: !0,
+                        onclick: null,
+                        showDuration: "300",
+                        hideDuration: "1000",
+                        extendedTimeOut: "1000",
+                        showEasing: "swing",
+                        hideEasing: "linear",
+                        showMethod: "fadeIn",
+                        hideMethod: "fadeOut",
+                        tapToDismiss: !1
+                    }
+            )
+        }
+    });
+</script>
 
 </body>
 

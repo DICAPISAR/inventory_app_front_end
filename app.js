@@ -14,6 +14,8 @@ const typeItemRouter = require('./routes/type_item');
 const providerRouter = require('./routes/provider');
 const profileRouter = require('./routes/profile');
 const itemRouter = require('./routes/item');
+const userRouter = require('./routes/user');
+const searchRouter = require('./routes/search');
 
 const app = express();
 
@@ -36,6 +38,8 @@ app.use('/type_item', typeItemRouter);
 app.use('/provider', providerRouter);
 app.use('/profile', profileRouter);
 app.use('/item', itemRouter);
+app.use('/user', userRouter);
+app.use('/search', searchRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -76,6 +80,52 @@ hbs.registerHelper('ifStatus', (status) => {
    <p>${message}</p>
   `
 });
+
+hbs.registerHelper('adminOptionUserManager', (infoProfile) => {
+  if (infoProfile.rolName === "ADMIN") {
+    return '' +
+        '<li class="mega-menu mega-menu-sm">\n' +
+        '<a class="has-arrow" href="javascript:void()" aria-expanded="false">\n' +
+        '<i class="icon-user menu-icon"></i><span class="nav-text">Gestion de Usuarios</span>\n' +
+        '</a>\n' +
+        '<ul aria-expanded="false">\n' +
+        '<li><a href="/user/create"><i class="icon-plus menu-icon"></i>Crear</a></li>\n' +
+        '<li><a href="/user/consult"><i class="icon-list menu-icon"></i>Consultar</a></li>\n' +
+        '</ul>\n' +
+        '</li>';
+  }
+})
+
+hbs.registerHelper('generateResult', (result, resourceType) => {
+
+  if ( result === undefined || result.length === 0) {
+    return `
+      <div class="card col-lg-11 container-fluid">
+          <div class="row">
+              <div class="col-lg-11">
+                <h5>Sin resultados</h5>
+              </div>
+          </div>
+      </div>
+    `;
+  }
+
+  let results = '';
+
+  result.forEach(item => {
+    results = results + '' + `
+    <div class="card col-lg-11 container-fluid" style="cursor: pointer" onclick="window.location.href='/${resourceType}/${item.id}'">
+        <div class="row">
+            <div class="col-lg-11">
+                <p><b>Id: </b> ${item.id} &nbsp;&nbsp;&nbsp; <b>Nombre: </b> ${item.name} &nbsp;&nbsp;&nbsp; <b>Creado: </b> ${item.creationDate} &nbsp;&nbsp;&nbsp; <b>Actualizado: </b> ${item.updateDate} </p>
+            </div>
+        </div>
+    </div>
+    `
+  });
+
+  return results;
+})
 
 /* handler by status error message */
 hbs.registerHelper('generateSelect', (entityList, indexOptionSelected) => {

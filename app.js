@@ -79,6 +79,21 @@ hbs.registerHelper('ifStatus', (status) => {
   `
 });
 
+hbs.registerHelper('adminOptionUserManager', (infoProfile) => {
+  if (infoProfile.rolName === "ADMIN") {
+    return '' +
+        '<li class="mega-menu mega-menu-sm">\n' +
+        '<a class="has-arrow" href="javascript:void()" aria-expanded="false">\n' +
+        '<i class="icon-user menu-icon"></i><span class="nav-text">Gestion de Usuarios</span>\n' +
+        '</a>\n' +
+        '<ul aria-expanded="false">\n' +
+        '<li><a href="/user/create"><i class="icon-plus menu-icon"></i>Crear</a></li>\n' +
+        '<li><a href="/user/consult"><i class="icon-list menu-icon"></i>Consultar</a></li>\n' +
+        '</ul>\n' +
+        '</li>';
+  }
+})
+
 /* handler by status error message */
 hbs.registerHelper('generateSelect', (entityList, indexOptionSelected) => {
 

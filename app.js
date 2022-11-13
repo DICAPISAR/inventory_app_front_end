@@ -15,6 +15,7 @@ const providerRouter = require('./routes/provider');
 const profileRouter = require('./routes/profile');
 const itemRouter = require('./routes/item');
 const userRouter = require('./routes/user');
+const searchRouter = require('./routes/search');
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.use('/provider', providerRouter);
 app.use('/profile', profileRouter);
 app.use('/item', itemRouter);
 app.use('/user', userRouter);
+app.use('/search', searchRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -92,6 +94,37 @@ hbs.registerHelper('adminOptionUserManager', (infoProfile) => {
         '</ul>\n' +
         '</li>';
   }
+})
+
+hbs.registerHelper('generateResult', (result, resourceType) => {
+
+  if ( result === undefined || result.length === 0) {
+    return `
+      <div class="card col-lg-11 container-fluid">
+          <div class="row">
+              <div class="col-lg-11">
+                <h5>Sin resultados</h5>
+              </div>
+          </div>
+      </div>
+    `;
+  }
+
+  let results = '';
+
+  result.forEach(item => {
+    results = results + '' + `
+    <div class="card col-lg-11 container-fluid" style="cursor: pointer" onclick="window.location.href='/${resourceType}/${item.id}'">
+        <div class="row">
+            <div class="col-lg-11">
+                <p><b>Id: </b> ${item.id} &nbsp;&nbsp;&nbsp; <b>Nombre: </b> ${item.name} &nbsp;&nbsp;&nbsp; <b>Creado: </b> ${item.creationDate} &nbsp;&nbsp;&nbsp; <b>Actualizado: </b> ${item.updateDate} </p>
+            </div>
+        </div>
+    </div>
+    `
+  });
+
+  return results;
 })
 
 /* handler by status error message */

@@ -1,0 +1,45 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Resultados de "{{resultValue}}"</h4>
+                    <p class="text-muted"><code></code>
+                    </p>
+                    <div id="accordion-three" class="accordion">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0" data-toggle="collapse" data-target="#brands" aria-expanded="true" aria-controls="collapseOne4"><i class="fa" aria-hidden="true"></i> Artículos </h5>
+                            </div>
+                            <div id="brands" class="collapse show" data-parent="#accordion-three"  style="background-color: rgba(236,236,236,0.53); padding-top: 5px">
+                                {{#generateResult resultResponse.result.item "item"}}
+                                {{/generateResult}}
+                            </div>
+                            <div class="card-header">
+                                <h5 class="mb-0" data-toggle="collapse" data-target="#items" aria-expanded="true" aria-controls="collapseOne4"><i class="fa" aria-hidden="true"></i> Marcas </h5>
+                            </div>
+                            <div id="items" class="collapse show" data-parent="#accordion-three"  style="background-color: rgba(236,236,236,0.53); padding-top: 5px">
+                                {{#generateResult resultResponse.result.brand "brand"}}
+                                {{/generateResult}}
+                            </div>
+                            <div class="card-header">
+                                <h5 class="mb-0" data-toggle="collapse" data-target="#provider" aria-expanded="true" aria-controls="collapseOne4"><i class="fa" aria-hidden="true"></i> Proveedores </h5>
+                            </div>
+                            <div id="provider" class="collapse show" data-parent="#accordion-three"  style="background-color: rgba(236,236,236,0.53); padding-top: 5px">
+                                {{#generateResult resultResponse.result.provider "provider"}}
+                                {{/generateResult}}
+                            </div>
+                            <div class="card-header">
+                                <h5 class="mb-0" data-toggle="collapse" data-target="#type_item" aria-expanded="true" aria-controls="collapseOne4"><i class="fa" aria-hidden="true"></i> Tipos de Artículos </h5>
+                            </div>
+                            <div id="type_item" class="collapse show" data-parent="#accordion-three"  style="background-color: rgba(236,236,236,0.53); padding-top: 5px">
+                                {{#generateResult resultResponse.result.type_item "type_item"}}
+                                {{/generateResult}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

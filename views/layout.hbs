@@ -90,7 +90,7 @@
                     Search
                 ***********************************-->
                 <div class="header-left">
-                    <form action="/search" method="post" id="form">
+                    <form action="/search" method="post" id="formSearch">
                         <div class="input-group icons">
                             <div class="input-group-prepend">
                                 <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i
@@ -99,7 +99,7 @@
                                 <input type="search" class="form-control" placeholder="Buscar"
                                        aria-label="Buscar" id="search" name="search">
                                 <div style="width: 10px"></div>
-                                <button type="button" class="btn btn-primary" id="buttonForm" name="buttonForm">Buscar</button>
+                                <button type="button" class="btn btn-primary" id="buttonFormSearch" name="buttonForm">Buscar</button>
                         </div>
                     </form>
                 </div>
@@ -276,7 +276,7 @@
 
 
 <script>
-    $("#buttonForm").on("click", function () {
+    $("#buttonFormSearch").on("click", function () {
 
         let isValidateForm = true;
         let search = document.getElementById('search').value;
@@ -286,7 +286,7 @@
         }
 
         if (isValidateForm) {
-            document.getElementById('form').submit();
+            document.getElementById('formSearch').submit();
         } else {
             toastr.warning("Debes ingresar algun valor para poder general la busqueda", "Error en busqueda",
                     {
